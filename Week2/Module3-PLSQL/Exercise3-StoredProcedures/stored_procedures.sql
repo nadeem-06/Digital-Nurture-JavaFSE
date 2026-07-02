@@ -1,3 +1,4 @@
+SET SERVEROUTPUT ON;
 -- Create transactions log table
 CREATE TABLE transactions (
     transaction_id   NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

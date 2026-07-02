@@ -1,3 +1,4 @@
+SET SERVEROUTPUT ON;
 -- Create accounts table
 CREATE TABLE accounts (
     account_id    NUMBER PRIMARY KEY,
