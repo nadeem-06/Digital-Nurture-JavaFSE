@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- =========================================== -->
+    <!-- Exercise 1: Basic Spring Bean Configuration -->
+    <!-- =========================================== -->
+
+    <!-- Address Bean - primitive properties -->
+    <bean id="address" class="com.cognizant.bean.Address">
+        <property name="street"  value="123 MG Road"/>
+        <property name="city"    value="Hyderabad"/>
+        <property name="state"   value="Telangana"/>
+        <property name="pincode" value="500001"/>
+    </bean>
+
+    <!-- Department Bean -->
+    <bean id="department" class="com.cognizant.bean.Department">
+        <property name="deptId"   value="DEPT001"/>
+        <property name="deptName" value="Information Technology"/>
+        <property name="location" value="Block A"/>
+    </bean>
+
+    <!-- Employee Bean - depends on address and department -->
+    <bean id="employee" class="com.cognizant.bean.Employee">
+        <property name="empId"      value="101"/>
+        <property name="name"       value="Nadeem"/>
+        <property name="salary"     value="75000"/>
+        <property name="address"    ref="address"/>
+        <property name="department" ref="department"/>
+    </bean>
+
+    <!-- =========================================== -->
+    <!-- Exercise 2: Dependency Injection            -->
+    <!-- =========================================== -->
+
+    <!-- EmailService - Setter Injection -->
+    <bean id="emailService"
+          class="com.cognizant.service.EmailService">
+        <property name="emailServer" value="smtp.cognizant.com"/>
+        <property name="port"        value="587"/>
+    </bean>
+
+    <!-- SMSService - Constructor Injection -->
+    <bean id="smsService"
+          class="com.cognizant.service.SMSService">
+        <constructor-arg value="Airtel"/>
+    </bean>
+
+    <!-- EmployeeService with Email - Setter Injection -->
+    <bean id="employeeServiceEmail"
+          class="com.cognizant.service.EmployeeService">
+        <property name="notificationService" ref="emailService"/>
+        <property name="employee"            ref="employee"/>
+    </bean>
+
+    <!-- EmployeeService with SMS - Constructor Injection -->
+    <bean id="employeeServiceSMS"
+          class="com.cognizant.service.EmployeeService">
+        <constructor-arg ref="smsService"/>
+        <property name="employee" ref="employee"/>
+    </bean>
+
+</beans>
